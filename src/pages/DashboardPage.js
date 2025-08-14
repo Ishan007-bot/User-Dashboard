@@ -59,21 +59,25 @@ const DashboardPage = () => {
               <span>Attendance</span>
             </div>
             
-            <div 
-              className={`nav-item ${activePage === 'tasks' ? 'active' : ''}`}
-              onClick={() => handleNavigation('tasks')}
-            >
-              <div className="nav-icon">📋</div>
-              <span>Tasks</span>
-            </div>
+            <Link to="/tasks" className="nav-link">
+              <div 
+                className={`nav-item ${activePage === 'tasks' ? 'active' : ''}`}
+                onClick={() => handleNavigation('tasks')}
+              >
+                <div className="nav-icon">📋</div>
+                <span>Tasks</span>
+              </div>
+            </Link>
             
-            <div 
-              className={`nav-item ${activePage === 'settings' ? 'active' : ''}`}
-              onClick={() => handleNavigation('settings')}
-            >
-              <div className="nav-icon">⚙️</div>
-              <span>Settings</span>
-            </div>
+            <Link to="/settings" className="nav-link">
+              <div 
+                className={`nav-item ${activePage === 'settings' ? 'active' : ''}`}
+                onClick={() => handleNavigation('settings')}
+              >
+                <div className="nav-icon">⚙️</div>
+                <span>Settings</span>
+              </div>
+            </Link>
           </nav>
 
 

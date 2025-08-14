@@ -5,6 +5,8 @@ import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import EmployeeListPage from './pages/EmployeeListPage';
 import AddEmployeePage from './pages/AddEmployeePage';
+import TasksPage from './pages/TasksPage';
+import SettingsPage from './pages/SettingsPage';
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/employees" element={<EmployeeListPage />} />
           <Route path="/add-employee" element={<AddEmployeePage />} />
+          <Route path="/tasks" element={<TasksPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
         </Routes>
       </div>
     </Router>
