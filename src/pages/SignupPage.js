@@ -22,6 +22,7 @@ const SignupPage = () => {
     e.preventDefault();
     console.log('Signup data:', formData);
     // Handle signup logic here
+    alert('Signup successful!');
   };
 
   return (
@@ -78,7 +79,7 @@ const SignupPage = () => {
             </div>
 
             <div className="form-group">
-              <label>Role</label>
+              <label className="role-label">Role</label>
               <div className="role-options">
                 <label className="role-option">
                   <input
@@ -87,9 +88,10 @@ const SignupPage = () => {
                     value="Admin"
                     checked={formData.role === 'Admin'}
                     onChange={handleInputChange}
+                    className="role-radio"
                   />
                   <span className="radio-custom"></span>
-                  Admin
+                  <span className="role-text">Admin</span>
                 </label>
                 <label className="role-option">
                   <input
@@ -98,9 +100,10 @@ const SignupPage = () => {
                     value="Intern"
                     checked={formData.role === 'Intern'}
                     onChange={handleInputChange}
+                    className="role-radio"
                   />
                   <span className="radio-custom"></span>
-                  Intern
+                  <span className="role-text">Intern</span>
                 </label>
                 <label className="role-option">
                   <input
@@ -109,51 +112,34 @@ const SignupPage = () => {
                     value="User"
                     checked={formData.role === 'User'}
                     onChange={handleInputChange}
+                    className="role-radio"
                   />
                   <span className="radio-custom"></span>
-                  User
+                  <span className="role-text">User</span>
                 </label>
               </div>
             </div>
 
             <div className="form-group">
-              <label className="checkbox-label">
+              <label className="terms-label">
                 <input
                   type="checkbox"
                   name="acceptTerms"
                   checked={formData.acceptTerms}
                   onChange={handleInputChange}
+                  className="terms-checkbox"
+                  required
                 />
                 <span className="checkbox-custom"></span>
-                Accept terms and condition
+                <span className="terms-text">
+                  Accept terms and condition
+                </span>
               </label>
-                          <small className="terms-text">
-              You agree to our <button type="button" className="link-button">Terms of Service</button> and <button type="button" className="link-button">Privacy Policy</button>.
-            </small>
             </div>
 
             <button type="submit" className="signup-btn">
               <span className="envelope-icon">✉</span>
-              Signup with Email
-            </button>
-            <button 
-              type="button" 
-              className="dashboard-btn" 
-              onClick={() => window.location.href = '/dashboard'}
-              style={{
-                width: '100%',
-                padding: '12px 24px',
-                background: 'linear-gradient(135deg, #10b981, #059669)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '12px',
-                fontSize: '14px',
-                fontWeight: '600',
-                cursor: 'pointer',
-                marginTop: '15px'
-              }}
-            >
-              Go to Dashboard (Test)
+              Sign Up with Email
             </button>
           </form>
 
@@ -169,7 +155,9 @@ const SignupPage = () => {
         <div className="login-options-section">
           <div className="login-prompt">
             <p>already have an account?</p>
-            <button type="button" className="login-btn" onClick={() => window.location.href = '/login'}>Login</button>
+            <button type="button" className="login-btn" onClick={() => window.location.href = '/login'}>
+              Login
+            </button>
           </div>
 
           <div className="separator">

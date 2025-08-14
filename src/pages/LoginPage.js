@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import './LoginPage.css';
 
 const LoginPage = () => {
@@ -65,7 +64,7 @@ const LoginPage = () => {
             </div>
 
             <div className="form-group">
-              <label>Role</label>
+              <label className="role-label">Role</label>
               <div className="role-options">
                 <label className="role-option">
                   <input
@@ -74,9 +73,10 @@ const LoginPage = () => {
                     value="Admin"
                     checked={formData.role === 'Admin'}
                     onChange={handleInputChange}
+                    className="role-radio"
                   />
                   <span className="radio-custom"></span>
-                  Admin
+                  <span className="role-text">Admin</span>
                 </label>
                 <label className="role-option">
                   <input
@@ -85,9 +85,10 @@ const LoginPage = () => {
                     value="Intern"
                     checked={formData.role === 'Intern'}
                     onChange={handleInputChange}
+                    className="role-radio"
                   />
                   <span className="radio-custom"></span>
-                  Intern
+                  <span className="role-text">Intern</span>
                 </label>
                 <label className="role-option">
                   <input
@@ -96,9 +97,10 @@ const LoginPage = () => {
                     value="User"
                     checked={formData.role === 'User'}
                     onChange={handleInputChange}
+                    className="role-radio"
                   />
                   <span className="radio-custom"></span>
-                  User
+                  <span className="role-text">User</span>
                 </label>
               </div>
             </div>
@@ -110,6 +112,7 @@ const LoginPage = () => {
                   name="rememberMe"
                   checked={formData.rememberMe}
                   onChange={handleInputChange}
+                  className="remember-checkbox"
                 />
                 <span className="checkbox-custom"></span>
                 Remember me
@@ -139,10 +142,10 @@ const LoginPage = () => {
         <div className="signup-options-section">
           <div className="signup-prompt">
             <p>don't have an account?</p>
-            <Link to="/" className="signup-btn">
+            <button type="button" className="signup-btn" onClick={() => window.location.href = '/'}>
               <span className="envelope-icon">✉</span>
               Sign Up with Email
-            </Link>
+            </button>
           </div>
 
           <div className="separator">
