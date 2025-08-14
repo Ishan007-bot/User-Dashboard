@@ -22,6 +22,7 @@ const LoginPage = () => {
     e.preventDefault();
     console.log('Login data:', formData);
     // Handle login logic here
+    window.location.href = '/dashboard';
   };
 
   return (

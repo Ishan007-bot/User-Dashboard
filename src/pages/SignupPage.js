@@ -136,6 +136,25 @@ const SignupPage = () => {
               <span className="envelope-icon">✉</span>
               Signup with Email
             </button>
+            <button 
+              type="button" 
+              className="dashboard-btn" 
+              onClick={() => window.location.href = '/dashboard'}
+              style={{
+                width: '100%',
+                padding: '12px 24px',
+                background: 'linear-gradient(135deg, #10b981, #059669)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '12px',
+                fontSize: '14px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                marginTop: '15px'
+              }}
+            >
+              Go to Dashboard (Test)
+            </button>
           </form>
 
           {/* Decorative Plant - Left Bottom */}
