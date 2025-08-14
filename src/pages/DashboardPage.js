@@ -76,17 +76,7 @@ const DashboardPage = () => {
             </div>
           </nav>
 
-          {/* User Profile */}
-          <div className="user-profile">
-            <div className="profile-picture">
-              <img src="https://via.placeholder.com/40x40/667eea/ffffff?text=TH" alt="Tom H." />
-            </div>
-            <div className="profile-info">
-              <div className="profile-name">Tom H.</div>
-              <div className="profile-role">Project Manager</div>
-            </div>
-            <div className="profile-dropdown">⌄</div>
-          </div>
+
         </div>
 
         {/* Main Content */}
