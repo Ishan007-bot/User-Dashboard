@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useEmployees } from '../context/EmployeeContext';
 import './AddEmployeePage.css';
 
 const AddEmployeePage = () => {
@@ -9,8 +10,29 @@ const AddEmployeePage = () => {
     email: '',
     role: 'User',
     department: 'Engineering',
-    status: 'Active'
+    status: 'Active',
+    startDate: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  
+  const navigate = useNavigate();
+  const { addEmployee, updateEmployee, editingEmployee, clearEditing } = useEmployees();
+
+  const isEditing = !!editingEmployee;
+
+  useEffect(() => {
+    if (editingEmployee) {
+      setFormData({
+        fullName: editingEmployee.name,
+        email: editingEmployee.email,
+        role: editingEmployee.role,
+        department: editingEmployee.department,
+        status: editingEmployee.status,
+        startDate: editingEmployee.startDate || ''
+      });
+    }
+  }, [editingEmployee]);
 
   const handleNavigation = (page) => {
     setActivePage(page);
@@ -24,19 +46,81 @@ const AddEmployeePage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const validateForm = () => {
+    if (!formData.fullName.trim()) {
+      alert('Please enter the employee\'s full name');
+      return false;
+    }
+    if (!formData.email.trim()) {
+      alert('Please enter the employee\'s email address');
+      return false;
+    }
+    if (!formData.email.includes('@')) {
+      alert('Please enter a valid email address');
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('New employee data:', formData);
-    // Handle form submission here
-    // Redirect to employee list after successful submission
-    window.location.href = '/employees';
+    
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      if (isEditing) {
+        // Update existing employee
+        updateEmployee(editingEmployee.id, {
+          name: formData.fullName,
+          email: formData.email,
+          role: formData.role,
+          department: formData.department,
+          status: formData.status,
+          startDate: formData.startDate
+        });
+        setShowSuccessMessage(true);
+        setTimeout(() => {
+          navigate('/employees');
+        }, 1500);
+      } else {
+        // Add new employee
+        addEmployee({
+          name: formData.fullName,
+          email: formData.email,
+          role: formData.role,
+          department: formData.department,
+          status: formData.status,
+          startDate: formData.startDate
+        });
+        setShowSuccessMessage(true);
+        setTimeout(() => {
+          navigate('/employees');
+        }, 1500);
+      }
+    } catch (error) {
+      console.error('Error saving employee:', error);
+      alert('An error occurred while saving the employee. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleCancel = () => {
+    if (isEditing) {
+      clearEditing();
+    }
+    navigate('/employees');
   };
 
   return (
     <div className="add-employee-page">
       {/* Top Bar */}
       <div className="top-bar">
-        <span className="page-title">AddNewEmployee</span>
+        <span className="page-title">{isEditing ? 'EditEmployee' : 'AddNewEmployee'}</span>
       </div>
 
       <div className="add-employee-container">
@@ -111,16 +195,26 @@ const AddEmployeePage = () => {
           {/* Header Section */}
           <div className="page-header">
             <div className="header-left">
-              <h1>Add New Employee</h1>
-              <p>Add a new team member to your organization</p>
+              <h1>{isEditing ? 'Edit Employee' : 'Add New Employee'}</h1>
+              <p>{isEditing ? 'Update employee information' : 'Add a new team member to your organization'}</p>
             </div>
             <div className="header-actions">
-              <Link to="/employees" className="back-btn">
+              <button className="back-btn" onClick={handleCancel}>
                 <span className="back-icon">←</span>
                 Back to Employees
-              </Link>
+              </button>
             </div>
           </div>
+
+          {/* Success Message */}
+          {showSuccessMessage && (
+            <div className="success-message">
+              <span className="success-icon">✅</span>
+              <span>
+                {isEditing ? 'Employee updated successfully!' : 'Employee added successfully!'}
+              </span>
+            </div>
+          )}
 
           {/* Add Employee Form */}
           <div className="form-container">
@@ -139,6 +233,7 @@ const AddEmployeePage = () => {
                       value={formData.fullName}
                       onChange={handleInputChange}
                       required
+                      disabled={isSubmitting}
                     />
                   </div>
                   
@@ -152,6 +247,7 @@ const AddEmployeePage = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
+                      disabled={isSubmitting}
                     />
                   </div>
                 </div>
@@ -165,6 +261,7 @@ const AddEmployeePage = () => {
                       value={formData.role}
                       onChange={handleInputChange}
                       required
+                      disabled={isSubmitting}
                     >
                       <option value="Admin">Admin</option>
                       <option value="User">User</option>
@@ -180,6 +277,7 @@ const AddEmployeePage = () => {
                       value={formData.department}
                       onChange={handleInputChange}
                       required
+                      disabled={isSubmitting}
                     >
                       <option value="Engineering">Engineering</option>
                       <option value="Marketing">Marketing</option>
@@ -201,6 +299,7 @@ const AddEmployeePage = () => {
                       value={formData.status}
                       onChange={handleInputChange}
                       required
+                      disabled={isSubmitting}
                     >
                       <option value="Active">Active</option>
                       <option value="Inactive">Inactive</option>
@@ -213,8 +312,9 @@ const AddEmployeePage = () => {
                       type="date"
                       id="startDate"
                       name="startDate"
-                      value={formData.startDate || ''}
+                      value={formData.startDate}
                       onChange={handleInputChange}
+                      disabled={isSubmitting}
                     />
                   </div>
                 </div>
@@ -222,11 +322,24 @@ const AddEmployeePage = () => {
 
               {/* Form Actions */}
               <div className="form-actions">
-                <Link to="/employees" className="cancel-btn">
+                <button 
+                  type="button" 
+                  className="cancel-btn" 
+                  onClick={handleCancel}
+                  disabled={isSubmitting}
+                >
                   Cancel
-                </Link>
-                <button type="submit" className="submit-btn">
-                  Add Employee
+                </button>
+                <button 
+                  type="submit" 
+                  className="submit-btn"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <span className="loading-spinner">⏳</span>
+                  ) : (
+                    isEditing ? 'Update Employee' : 'Add Employee'
+                  )}
                 </button>
               </div>
             </form>
@@ -238,3 +351,4 @@ const AddEmployeePage = () => {
 };
 
 export default AddEmployeePage;
+

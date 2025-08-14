@@ -322,6 +322,99 @@
   transform: translateY(0);
 }
 
+/* Success Message */
+.success-message {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 16px 24px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: slideIn 0.3s ease;
+}
+
+.success-icon {
+  font-size: 20px;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Enhanced Form Interactions */
+.form-group input:disabled,
+.form-group select:disabled {
+  background-color: #f8f9fa;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+.form-group input:disabled:focus,
+.form-group select:disabled:focus {
+  border-color: #d1d5db;
+  box-shadow: none;
+}
+
+/* Button States */
+.submit-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.submit-btn:disabled:hover {
+  background: #9ca3af;
+  transform: none;
+}
+
+.cancel-btn:disabled {
+  background: #f3f4f6;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Enhanced Form Validation */
+.form-group input:invalid,
+.form-group select:invalid {
+  border-color: #ef4444;
+}
+
+.form-group input:invalid:focus,
+.form-group select:invalid:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Form Section Enhancement */
+.form-section h3 {
+  color: #374151;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+}
+
 /* Responsive Design */
 @media (max-width: 1200px) {
   .form-row {
@@ -373,5 +466,24 @@
   .submit-btn {
     width: 100%;
     justify-content: center;
+  }
+}
+
+/* Responsive Enhancements */
+@media (max-width: 768px) {
+  .success-message {
+    padding: 12px 16px;
+    margin-bottom: 20px;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .form-actions .cancel-btn,
+  .form-actions .submit-btn {
+    width: 100%;
+    text-align: center;
   }
 }
