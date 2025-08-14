@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import './SignupPage.css';
 
 const SignupPage = () => {
@@ -151,7 +150,7 @@ const SignupPage = () => {
         <div className="login-options-section">
           <div className="login-prompt">
             <p>already have an account?</p>
-            <Link to="/login" className="login-btn">Login</Link>
+            <button type="button" className="login-btn" onClick={() => window.location.href = '/login'}>Login</button>
           </div>
 
           <div className="separator">
